@@ -2,7 +2,7 @@
 
 This is an e-commerce dataset of orders made on Olist Store. The largest department store in the Brazilian marketplace. It contains around 100k order details from 2016 to 2018.
 
-### Check my Streamlit app [here](https://brazilian-ecommerce-analysis-hng011.streamlit.app/)
+### Check my Streamlit app [here](https://brazilian-ecommerce-analysis-dc77u7pvfwtpulem9kdiel.streamlit.app/)
 
 # Environmet Setup with Conda Package Manager 🐍
 1. Clone this repostory
