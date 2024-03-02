@@ -10,20 +10,27 @@ git clone https://github.com/hng011/brazilian-ecommerce-analysis.git <.|folder_n
 
 2. Create a new Conda environment
 ```bash
-conda create -n <env-name>
+conda create --name olist_env python=3.11 -y
 ```
 
 3. Activating the environment
 ```bash
-conda activate <env-name>
+conda activate olist_env
 ```
 
-4. Make sure you've already in the right directory then install packages within the requirements.txt
+4. Make sure that you've already in the correct directory, then install packages listed in the requirements.txt file using the following command
 ```bash
-conda install --file requirements.txt
+pip install -r requirements.txt
 ```
 
 5. Start the jupyter-lab
 ```
 jupyter lab
+```
+
+# How to run the streamlit app 🤔
+1. Go to the `dashboard` folder and ensure that you've already installed all the packages listed in the requirements.txt file
+2. Run the following command
+```bash
+streamlit run dashboard.py
 ```

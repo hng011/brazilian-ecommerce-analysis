@@ -149,7 +149,7 @@ def main():
             )
         except:
             st.write("streamlit_option_menu module not found")
-            st.write("Please install by the following command")
+            st.write("Please install the module using the following command")
             st.write("`pip install streamlit-option-menu`")
 
     if selected == "Main Dashboard":
