@@ -2,6 +2,8 @@
 
 This is an e-commerce dataset of orders made on Olist Store. The largest department store in the Brazilian marketplace. It contains around 100k order details from 2016 to 2018.
 
+### Check my Streamlit app [here](https://brazilian-ecommerce-analysis-hng011.streamlit.app/)
+
 # Environmet Setup with Conda Package Manager 🐍
 1. Clone this repostory
 ```bash
@@ -32,5 +34,5 @@ jupyter lab
 1. Go to the `dashboard` folder and ensure that you've already installed all the packages listed in the requirements.txt file
 2. Run the following command
 ```bash
-streamlit run dashboard.py
+streamlit run streamlit_app.py
 ```
