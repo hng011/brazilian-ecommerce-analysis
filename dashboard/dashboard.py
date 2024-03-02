@@ -5,7 +5,7 @@ import seaborn as sns
 from streamlit_option_menu import option_menu
 
 def show_revenue(data):
-    monthly_per_year = data.resample(rule="M", on="order_approved_at").agg({
+    monthly_per_year = data.resample(rule="ME", on="order_approved_at").agg({
         "order_id": "nunique",
         "price": "sum"
     })
@@ -109,13 +109,13 @@ def top_5_categories(df):
 
     colors = ["#72BCD4", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 
-    sns.barplot(x="order_count", y="category_name", data=top_5_categories.head(5), palette=colors, ax=axs[0])
+    sns.barplot(x="order_count", y="category_name", data=top_5_categories.head(5), hue="category_name", legend=False, palette=colors, ax=axs[0])
     axs[0].set_ylabel(None)
     axs[0].set_xlabel(None)
     axs[0].set_title("5 Kategori terbaik", loc="center", fontsize=20)
     axs[0].tick_params(axis ='y', labelsize=20)
     
-    sns.barplot(x="order_count", y="category_name", data=top_5_categories.sort_values(by="order_count", ascending=True).head(5), palette=colors, ax=axs[1])
+    sns.barplot(x="order_count", y="category_name", data=top_5_categories.sort_values(by="order_count", ascending=True).head(5), hue="category_name", legend=False, palette=colors, ax=axs[1])
     axs[1].set_ylabel(None)
     axs[1].set_xlabel(None)
     axs[1].invert_xaxis()
@@ -130,7 +130,7 @@ def cust_by_state(df):
     data_cust_state = show_cust_state(df)
     fig, ax = plt.subplots(figsize=(13,10))
     st.header("Total Customer berdasarkan State 📊")
-    sns.barplot(x="customer_count", y="full_customer_state", data=data_cust_state, palette="coolwarm")
+    sns.barplot(x="customer_count", y="full_customer_state", data=data_cust_state, hue="full_customer_state", legend=False, palette="coolwarm")
     plt.xlabel(None)
     plt.ylabel(None)
     ax.tick_params(axis="x", labelsize=15)

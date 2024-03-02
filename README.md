@@ -10,7 +10,7 @@ git clone https://github.com/hng011/brazilian-ecommerce-analysis.git <.|folder_n
 
 2. Create a new Conda environment
 ```bash
-conda create --name olist_env python=3.11 -y
+conda create -n olist_env python=3.11 -y
 ```
 
 3. Activating the environment
