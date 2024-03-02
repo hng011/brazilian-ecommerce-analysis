@@ -1,4 +1,3 @@
 .ipynb_checkpoints
 .env
-dashboard/
-
+.dashboard/dashboard.py

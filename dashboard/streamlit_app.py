@@ -138,7 +138,7 @@ def cust_by_state(df):
     st.pyplot(fig)
 
 def main():
-    df = pd.read_csv("./main_data.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/hng011/brazilian-ecommerce-analysis/main/dashboard/main_data.csv")
     df = convert_to_datetime(df) 
     
     with st.sidebar:
