@@ -129,8 +129,11 @@ def top_5_categories(df):
 def cust_by_state(df):
     data_cust_state = show_cust_state(df)
     fig, ax = plt.subplots(figsize=(13,10))
+    colors = ["#D3D3D3" for _ in range(len(data_cust_state))]
+    colors.insert(0,"#72BCD4")
+
     st.header("Total Customer berdasarkan State 📊")
-    sns.barplot(x="customer_count", y="full_customer_state", data=data_cust_state, hue="full_customer_state", legend=False, palette="coolwarm")
+    sns.barplot(x="customer_count", y="full_customer_state", data=data_cust_state, hue="full_customer_state", legend=False, palette=colors)
     plt.xlabel(None)
     plt.ylabel(None)
     ax.tick_params(axis="x", labelsize=15)
