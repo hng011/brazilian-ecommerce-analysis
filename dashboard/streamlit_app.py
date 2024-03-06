@@ -53,19 +53,17 @@ def convert_to_datetime(data):
 
 def home(df):
     # Main Chart - Olist Revenue
-    st.header("Olist Store Dashboard 🛒")
+    st.header("Olist Store Dashboard 2016-2018 🛒")
     with st.container():
-        col_info1, col_info2 = st.columns(2)
-        with col_info1:
-            st.metric("Total Pendapatan:",
-                      value=f"{df['price'].sum():.2f} BRL")
-        with col_info2:
-            st.metric("Total Customer:",
-                      value=f"{df['customer_unique_id'].nunique()}")
+        revenue = df['price'].sum()
+        brl_in_idr = float(revenue)*3169.16
+        st.metric("Total Revenue:",
+                  value=f"{revenue} BRL | {brl_in_idr} IDR")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write("### Pendapatan Bulanan 💰")
+            st.metric("Total Customers:",
+                      value=f"{df['customer_unique_id'].nunique()}")
         
         min_month = df["order_approved_at"].min()
         max_month = df["order_approved_at"].max()
@@ -74,7 +72,7 @@ def home(df):
         try:
             with col2:
                 start_date, end_date = st.date_input(
-                    label='Rentang Waktu',
+                    label='Time Interval',
                     min_value=min_month,
                     max_value=max_month,
                     value=[min_month,max_month]
@@ -94,12 +92,13 @@ def home(df):
                     color="#72BCD4"
             );
             plt.xticks(rotation=90)
+            plt.title("Monthly Revenue",fontsize=20)
             st.pyplot(fig)
         except:
             st.write("Loading...")
 
 def top_5_categories(df):
-    st.header("5 Kategori Produk Terbaik dan Terburuk 🏆")
+    st.header("5 Best and Worst Product Categories 🏆")
     top_5_categories = show_5_categories(df)
     fig, axs = plt.subplots(
         nrows=1,
@@ -112,7 +111,7 @@ def top_5_categories(df):
     sns.barplot(x="order_count", y="category_name", data=top_5_categories.head(5), hue="category_name", legend=False, palette=colors, ax=axs[0])
     axs[0].set_ylabel(None)
     axs[0].set_xlabel(None)
-    axs[0].set_title("5 Kategori terbaik", loc="center", fontsize=20)
+    axs[0].set_title("5 Best Categories", loc="center", fontsize=20)
     axs[0].tick_params(axis ='y', labelsize=20)
     
     sns.barplot(x="order_count", y="category_name", data=top_5_categories.sort_values(by="order_count", ascending=True).head(5), hue="category_name", legend=False, palette=colors, ax=axs[1])
@@ -121,7 +120,7 @@ def top_5_categories(df):
     axs[1].invert_xaxis()
     axs[1].yaxis.set_label_position("right")
     axs[1].yaxis.tick_right()
-    axs[1].set_title("5 Kategori terburuk", loc="center", fontsize=20)
+    axs[1].set_title("5 Worst  Categories", loc="center", fontsize=20)
     axs[1].tick_params(axis='y', labelsize=20)
     
     st.pyplot(fig)
@@ -132,7 +131,7 @@ def cust_by_state(df):
     colors = ["#D3D3D3" for _ in range(len(data_cust_state))]
     colors.insert(0,"#72BCD4")
 
-    st.header("Total Customer berdasarkan State 📊")
+    st.header("Total Customers Based on State 🌍")
     sns.barplot(x="customer_count", y="full_customer_state", data=data_cust_state, hue="full_customer_state", legend=False, palette=colors)
     plt.xlabel(None)
     plt.ylabel(None)
