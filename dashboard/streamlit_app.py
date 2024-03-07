@@ -57,45 +57,57 @@ def home(df):
     with st.container():
         revenue = df['price'].sum()
         brl_in_idr = float(revenue)*3169.16
-        st.metric("Total Revenue:",
-                  value=f"{revenue} BRL | {brl_in_idr} IDR")
 
         col1, col2 = st.columns(2)
+
         with col1:
-            st.metric("Total Customers:",
-                      value=f"{df['customer_unique_id'].nunique()}")
-        
-        min_month = df["order_approved_at"].min()
-        max_month = df["order_approved_at"].max()
-        
-
-        try:
-            with col2:
-                start_date, end_date = st.date_input(
-                    label='Time Interval',
-                    min_value=min_month,
-                    max_value=max_month,
-                    value=[min_month,max_month]
-
-                )
-            df = df[(df["order_approved_at"] >= str(start_date)) & 
-                    (df["order_approved_at"] <= str(end_date))]
-
-            data_revenue = show_revenue(df)
-            fig, ax = plt.subplots(
-                figsize=(10,3)
+            st.subheader("Total Revenue 💸")
+            genre = st.radio(
+                label="Currency:",
+                options=("Brazilian Real","Indonesian Rupiah"),
+                horizontal=True
             )
-            ax.plot(data_revenue["order_approved_at"],
-                    data_revenue["revenue"],
-                    marker="o",
-                    linewidth=2, 
-                    color="#72BCD4"
-            );
-            plt.xticks(rotation=90)
-            plt.title("Monthly Revenue",fontsize=20)
-            st.pyplot(fig)
-        except:
-            st.write("Loading...")
+
+            if genre == "Brazilian Real":
+                st.subheader(f"{revenue} BRL")
+        
+            if genre == "Indonesian Rupiah":
+                st.subheader(f"{brl_in_idr} IDR")
+
+    # col1, col2 = st.columns(2)
+    min_month = df["order_approved_at"].min()
+    max_month = df["order_approved_at"].max()
+    
+    try:
+        with col2:
+            st.metric("Total Customers:",
+                        value=f"{df['customer_unique_id'].nunique()}")
+            
+            start_date, end_date = st.date_input(
+                label='Time Interval',
+                min_value=min_month,
+                max_value=max_month,
+                value=[min_month,max_month]
+
+            )
+        df = df[(df["order_approved_at"] >= str(start_date)) & 
+                (df["order_approved_at"] <= str(end_date))]
+
+        data_revenue = show_revenue(df)
+        fig, ax = plt.subplots(
+            figsize=(10,3)
+        )
+        ax.plot(data_revenue["order_approved_at"],
+                data_revenue["revenue"],
+                marker="o",
+                linewidth=2, 
+                color="#72BCD4"
+        );
+        plt.xticks(rotation=90)
+        plt.title("Monthly Revenue",fontsize=20)
+        st.pyplot(fig)
+    except:
+        st.write("Loading...")
 
 def top_5_categories(df):
     st.header("5 Best and Worst Product Categories 🏆")
